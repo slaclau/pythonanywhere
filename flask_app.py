@@ -120,13 +120,13 @@ def get_snapcraft_info_api(key):
     
 def get_snapcraft_channel_info(channel):
     snapcraft_channel_map = get_snapcraft_info_api("channel-map")
-    for i in range(0,len(snapcraft_channel_map)-1):
-        if snapcraft_channel_map[i]["name"] == channel:
+    for i in range(0,len(snapcraft_channel_map)):
+        if snapcraft_channel_map[i]["channel"]["name"] == channel:
             index = i
             break
-    if index:
+    try:
         return snapcraft_channel_map[i]
-    else:
+    except NameError:
         return "No channel matching this name"
 
 def get_snapcraft_channel_version(channel):
