@@ -74,7 +74,7 @@ headers = {
     "Accept": "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
 }
-def getGithubReleaseApi(key)
+def getGithubReleaseApi(key):
     try:
         response = requests.get(url, headers=headers, timeout=0.1)
         responseDict = json.loads(response.text)
