@@ -15,25 +15,25 @@ def webhook():
         abort_code = 418
         # Do initial validations on required headers
         if 'X-Github-Event' not in request.headers:
-            print("abort")
+            print("abort 1")
             abort(abort_code)
         if 'X-Github-Delivery' not in request.headers:
-            print("abort")
+            print("abort 2")
             abort(abort_code)
         if 'X-Hub-Signature' not in request.headers:
-            print("abort")
+            print("abort 3")
             abort(abort_code)
         if not request.is_json:
-            print("abort")
+            print("abort 4")
             abort(abort_code)
         if 'User-Agent' not in request.headers:
-            print("abort")
+            print("abort 5")
             abort(abort_code)
         ua = request.headers.get('User-Agent')
         if not ua.startswith('GitHub-Hookshot/'):
-            print("abort")
+            print("abort 6")
             abort(abort_code)
-
+        print("got here!")
         event = request.headers.get('X-GitHub-Event')
         if event == "ping":
             return json.dumps({'msg': 'Hi!'})
