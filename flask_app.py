@@ -62,4 +62,4 @@ def webhook():
 
 @app.route('/test', methods=['GET'])
 def test():
-    return json.dumps({'msg':'test'}
+    return json.dumps({'msg':'test'})
