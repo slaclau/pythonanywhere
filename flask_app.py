@@ -20,9 +20,9 @@ def webhook():
         if 'X-Github-Delivery' not in request.headers:
             print("abort 2")
             abort(abort_code)
-#        if 'X-Hub-Signature' not in request.headers:
-#            print("abort 3")
-#            abort(abort_code)
+        if 'X-Hub-Signature' not in request.headers:
+            print("abort 3")
+            abort(abort_code)
         if not request.is_json:
             print("abort 4")
             abort(abort_code)
