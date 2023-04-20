@@ -75,12 +75,12 @@ def webhook():
 def return_github_release():
     return get_shields_endpoint("Github latest release", get_github_release_api("name"))
 
-@app.route('/snap/beta', methods=['GET']):
+@app.route('/snap/beta', methods=['GET'])
 def return_snap_beta():
     return get_shields_endpoint("Snapcraft beta channel", get_snapcraft_channel_version("beta"))
 
-@app.route('/snap/edge', methods=['GET']):
-def return_snap_beta():
+@app.route('/snap/edge', methods=['GET'])
+def return_snap_edge():
     return get_shields_endpoint("Snapcraft edge channel", get_snapcraft_channel_version("edge"))
 
 def get_shields_endpoint(label,message,color='blue'):
