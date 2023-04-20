@@ -59,3 +59,7 @@ def webhook():
         build_commit = f'build_commit = "{commit_hash}"'
         print(f'{build_commit}')
         return 'Updated PythonAnywhere server to commit {commit}'.format(commit=commit_hash)
+
+@app.route('/test', methods=['GET'])
+def test():
+    return json.dumps({'msg':'test'}
