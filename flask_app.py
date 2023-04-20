@@ -75,6 +75,10 @@ def webhook():
 def return_github_release():
     return get_shields_endpoint("Github latest release", get_github_release_api("name"))
 
+@app.route('/snap', methods=['GET'])
+def return_snap_api():
+    return get_snapcraft_info_api()
+
 @app.route('/snap/beta', methods=['GET'])
 def return_snap_beta():
     return get_shields_endpoint("Snapcraft beta channel", get_snapcraft_channel_version("beta"))
@@ -105,7 +109,7 @@ def get_github_release_api(key):
     except requests.exceptions.RequestException:
         return "No response"
     
-def get_snapcraft_info_api(key):
+def get_snapcraft_info_api(key=None):
     url = "https://api.snapcraft.io/v2/snaps/info/fortius-ant"
     headers = {
         "User-Agent": "My User Agent 1.0",
@@ -114,7 +118,10 @@ def get_snapcraft_info_api(key):
     try:
         response = requests.get(url, headers=headers, timeout=0.1)
         responseDict = json.loads(response.text)
-        return responseDict[key]
+        if key == None:
+            return responseDict
+        else:
+            return responseDict[key]
     except requests.exceptions.RequestException:
         return "No response"
     
