@@ -66,7 +66,7 @@ def webhook():
 
 @app.route('/test', methods=['GET'])
 def test():
-    return json.dumps({'Version':getGithubReleaseApi("name"})
+    return json.dumps({'Version':getGithubReleaseApi("name")})
 
 
 url = "https://api.github.com/repos/slaclau/FortiusANT/releases/latest"
