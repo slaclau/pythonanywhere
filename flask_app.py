@@ -2,6 +2,7 @@ from flask import Flask, request, abort
 import git
 import json
 import os
+import requests
 app = Flask(__name__)
 
 wa_secret = os.getenv("wa_secret")
@@ -14,17 +15,23 @@ def webhook():
         abort_code = 418
         # Do initial validations on required headers
         if 'X-Github-Event' not in request.headers:
+            print("abort")
             abort(abort_code)
         if 'X-Github-Delivery' not in request.headers:
+            print("abort")
             abort(abort_code)
         if 'X-Hub-Signature' not in request.headers:
+            print("abort")
             abort(abort_code)
         if not request.is_json:
+            print("abort")
             abort(abort_code)
         if 'User-Agent' not in request.headers:
+            print("abort")
             abort(abort_code)
         ua = request.headers.get('User-Agent')
         if not ua.startswith('GitHub-Hookshot/'):
+            print("abort")
             abort(abort_code)
 
         event = request.headers.get('X-GitHub-Event')
