@@ -71,20 +71,64 @@ def webhook():
         print(f'{build_commit}')
         return 'Updated PythonAnywhere server to commit {commit}'.format(commit=commit_hash)
 
-@app.route('/test', methods=['GET'])
-def test():
-    return json.dumps({'Version':getGithubReleaseApi("name")})
+@app.route('/github/release', methods=['GET'])
+def return_github_release():
+    return get_shields_endpoint("Github latest release", get_github_release_api("name"))
 
+@app.route('/snap/beta', methods=['GET']):
+def return_snap_beta():
+    return get_shields_endpoint("Snapcraft beta channel", get_snapcraft_channel_version("beta"))
 
-url = "https://api.github.com/repos/slaclau/FortiusANT/releases/latest"
-headers = {
-    "Accept": "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28",
-}
-def getGithubReleaseApi(key):
+@app.route('/snap/edge', methods=['GET']):
+def return_snap_beta():
+    return get_shields_endpoint("Snapcraft edge channel", get_snapcraft_channel_version("edge"))
+
+def get_shields_endpoint(label,message,color='blue'):
+    schema = {
+        "schemaVersion": 1,
+        "label": label,
+        "message": message,
+        "color": color
+    }
+    return json.dumps(schema)
+
+def get_github_release_api(key):
+    url = "https://api.github.com/repos/slaclau/FortiusANT/releases/latest"
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
     try:
         response = requests.get(url, headers=headers, timeout=0.1)
         responseDict = json.loads(response.text)
         return responseDict[key]
     except requests.exceptions.RequestException:
         return "No response"
+    
+def get_snapcraft_info_api(key):
+    url = "https://api.snapcraft.io/v2/snaps/info/fortius-ant"
+    headers = {
+        "User-Agent": "My User Agent 1.0",
+        "Snap-Device-Series": "16",
+    }
+    try:
+        response = requests.get(url, headers=headers, timeout=0.1)
+        responseDict = json.loads(response.text)
+        return responseDict[key]
+    except requests.exceptions.RequestException:
+        return "No response"
+    
+def get_snapcraft_channel_info(channel):
+    snapcraft_channel_map = get_snapcraft_info_api("channel")
+    for i in range(0,len(snapcraft_channel_map)-1):
+        if snapcraft_channel_map[i]["name"] == channel:
+            index = i
+            break
+    if index:
+        return snapcraft_channel_map[i]
+    else:
+        return "No channel matching this name"
+
+def get_snapcraft_channel_version(channel):
+    channel_info = get_snapcraft_channel_info(channel)
+    return channel_info["version"]
