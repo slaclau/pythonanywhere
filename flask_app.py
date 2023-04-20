@@ -132,7 +132,7 @@ def get_snapcraft_channel_info(channel):
             index = i
             break
     try:
-        return snapcraft_channel_map[i]
+        return snapcraft_channel_map[index]
     except NameError:
         return "No channel matching this name"
 
