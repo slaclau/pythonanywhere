@@ -1,7 +1,10 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 import git
 import json
+import os
 app = Flask(__name__)
+
+wa_secret = os.getenv("wa_secret")
 
 @app.route('/update_server', methods=['POST'])
 def webhook():
