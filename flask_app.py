@@ -66,4 +66,18 @@ def webhook():
 
 @app.route('/test', methods=['GET'])
 def test():
-    return json.dumps({'msg':'test'})
+    return json.dumps({'Version':getGithubReleaseApi("name"})
+
+
+url = "https://api.github.com/repos/slaclau/FortiusANT/releases/latest"
+headers = {
+    "Accept": "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+}
+def getGithubReleaseApi(key)
+    try:
+        response = requests.get(url, headers=headers, timeout=0.1)
+        responseDict = json.loads(response.text)
+        return responseDict[key]
+    except requests.exceptions.RequestException:
+        return "No response"
