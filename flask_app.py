@@ -119,7 +119,7 @@ def get_snapcraft_info_api(key):
         return "No response"
     
 def get_snapcraft_channel_info(channel):
-    snapcraft_channel_map = get_snapcraft_info_api("channel")
+    snapcraft_channel_map = get_snapcraft_info_api("channel-map")
     for i in range(0,len(snapcraft_channel_map)-1):
         if snapcraft_channel_map[i]["name"] == channel:
             index = i
