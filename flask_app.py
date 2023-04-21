@@ -134,10 +134,10 @@ def get_snapcraft_info_api(key=None):
     try:
         response = requests.get(url, headers=headers, timeout=5)
         responseDict = json.loads(response.text)
-    if key == None:
-        return responseDict
-    else:
-        return responseDict[key]
+        if key == None:
+            return responseDict
+        else:
+            return responseDict[key]
     except requests.exceptions.RequestException:
         return "No response"
     
@@ -163,10 +163,10 @@ def get_launchpad_ppa_api(ppa,request=None,key=None):
     try:
         response = requests.get(url, timeout=0.1)
         responseDict = json.loads(response.text)
-    if key == None:
-        return responseDict
-    else:
-        return responseDict[key]
+        if key == None:
+            return responseDict
+        else:
+            return responseDict[key]
     except requests.exceptions.RequestException:
         return "No response"
     
