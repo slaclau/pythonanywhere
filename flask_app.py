@@ -171,5 +171,5 @@ def get_launchpad_ppa_api(ppa,request=None,key=None):
         return "No response"
     
 
-def get_launchpad_ppa_build_records(ppa,source=fortius-ant,key=None):
+def get_launchpad_ppa_build_records(ppa,source="fortius-ant",key=None):
     return get_launchpad_ppa_api(ppa,request="ws.op=getBuildRecords&source_name=" + source,key=key)
