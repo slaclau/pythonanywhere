@@ -1,3 +1,4 @@
+import json
 def get_shields_endpoint(label,message,color='blue'):
     schema = {
         "schemaVersion": 1,
