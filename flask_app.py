@@ -9,6 +9,7 @@ import requests
 from launchpad import launchpad
 
 app = Flask(__name__)
+app.register_blueprint(launchpad)
 
 wa_secret = os.getenv("wa_secret")
 
