@@ -106,12 +106,12 @@ def get_github_release_api(key):
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
     }
-    try:
-        response = requests.get(url, headers=headers, timeout=0.1)
-        responseDict = json.loads(response.text)
-        return responseDict[key]
-    except requests.exceptions.RequestException:
-        return "No response"
+    #try:
+    response = requests.get(url, headers=headers, timeout=0.1)
+    responseDict = json.loads(response.text)
+    return responseDict[key]
+    #except requests.exceptions.RequestException:
+    #    return "No response"
     
 def get_snapcraft_info_api(key=None):
     url = "https://api.snapcraft.io/v2/snaps/info/fortius-ant"
