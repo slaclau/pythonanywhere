@@ -7,6 +7,7 @@ import os
 import requests
 
 from launchpad import launchpad
+from utils import get_shields_endpoint
 
 app = Flask(__name__)
 app.register_blueprint(launchpad)
@@ -94,15 +95,6 @@ def return_snap_beta():
 @app.route('/snap/edge', methods=['GET'])
 def return_snap_edge():
     return get_shields_endpoint("Snapcraft edge channel", get_snapcraft_channel_version("edge"))
-
-def get_shields_endpoint(label,message,color='blue'):
-    schema = {
-        "schemaVersion": 1,
-        "label": label,
-        "message": message,
-        "color": color
-    }
-    return json.dumps(schema)
 
 def get_github_release_api(key):
     url = "https://api.github.com/repos/slaclau/FortiusANT/releases/latest"

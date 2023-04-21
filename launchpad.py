@@ -2,7 +2,7 @@ from flask import Blueprint
 
 import requests
 
-from flask_app import get_shields_endpoint
+from utils import get_shields_endpoint
 
 launchpad = Blueprint('launchpad', __name__)
 
