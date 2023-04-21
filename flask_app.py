@@ -119,15 +119,15 @@ def get_snapcraft_info_api(key=None):
         "User-Agent": "My User Agent 1.0",
         "Snap-Device-Series": "16",
     }
-    #try:
-    response = requests.get(url, headers=headers, timeout=5)
-    responseDict = json.loads(response.text)
+    try:
+        response = requests.get(url, headers=headers, timeout=5)
+        responseDict = json.loads(response.text)
     if key == None:
         return responseDict
     else:
         return responseDict[key]
-    #except requests.exceptions.RequestException:
-    #    return "No response"
+    except requests.exceptions.RequestException:
+        return "No response"
     
 def get_snapcraft_channel_info(channel):
     snapcraft_channel_map = get_snapcraft_info_api("channel-map")
