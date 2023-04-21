@@ -127,7 +127,7 @@ def get_snapcraft_info_api(key=None):
         "Snap-Device-Series": "16",
     }
     try:
-        response = requests.get(url, headers=headers, timeout=0.5)
+        response = requests.get(url, headers=headers, timeout=5)
         responseDict = json.loads(response.text)
         if key == None:
             return responseDict
