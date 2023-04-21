@@ -1,5 +1,7 @@
 from flask import Blueprint
 
+import requests
+
 launchpad = Blueprint('launchpad', __name__)
 
 @launchpad.route("/launchpad/<ppa>")
@@ -15,12 +17,11 @@ def get_launchpad_ppa_api(ppa,request=None,key=None):
     if request != None:
         url = url + request
     try:
-        response = requests.get(url, timeout=0.1)
-        responseDict = json.loads(response.text)
+        response = requests.get(url, timeout=0.1).json()
         if key == None:
-            return responseDict
+            return response
         else:
-            return responseDict[key]
+            return response[key]
     except requests.exceptions.RequestException:
         return "No response"
     
