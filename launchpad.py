@@ -15,7 +15,7 @@ def return_launchpad_build_records(ppa,source):
     return get_launchpad_ppa_build_records(ppa,source)
     
 @launchpad.route("/launchpad/<ppa>/<source>/binary")
-def return_launchpad_build_records(ppa,source):
+def return_launchpad_binaries(ppa,source):
     return get_launchpad_ppa_binaries(ppa,source)
     
 @launchpad.route("/launchpad/<ppa>/<source>/binary/<distribution>/version")
