@@ -5,6 +5,9 @@ import hashlib
 import json
 import os
 import requests
+
+import launchpad
+
 app = Flask(__name__)
 
 wa_secret = os.getenv("wa_secret")
@@ -79,18 +82,6 @@ def is_valid_signature(x_hub_signature, data, private_key):
 def return_github_release():
     return get_shields_endpoint("Github latest release", get_github_release_api("name"))
 
-@app.route('/launchpad/ppa', methods=['GET'])
-def return_launchpad_ppa_api():
-    return get_launchpad_ppa_api("ppa")
-
-@app.route('/launchpad/ppa-pre', methods=['GET'])
-def return_launchpad_ppa_pre_api():
-    return get_launchpad_ppa_api("ppa-pre")
-
-@app.route('/launchpad/ppa-develop', methods=['GET'])
-def return_launchpad_ppa_develop_api():
-    return get_launchpad_ppa_api("ppa-develop")
-
 @app.route('/snap', methods=['GET'])
 def return_snap_api():
     return get_snapcraft_info_api()
@@ -155,21 +146,3 @@ def get_snapcraft_channel_info(channel):
 def get_snapcraft_channel_version(channel):
     channel_info = get_snapcraft_channel_info(channel)
     return channel_info["version"]
-
-def get_launchpad_ppa_api(ppa,request=None,key=None):
-    url = "https://api.launchpad.net/devel/~slaclau/+archive/ubuntu/" + ppa
-    if request != None:
-        url = url + request
-    try:
-        response = requests.get(url, timeout=0.1)
-        responseDict = json.loads(response.text)
-        if key == None:
-            return responseDict
-        else:
-            return responseDict[key]
-    except requests.exceptions.RequestException:
-        return "No response"
-    
-
-def get_launchpad_ppa_build_records(ppa,source="fortius-ant",key=None):
-    return get_launchpad_ppa_api(ppa,request="ws.op=getBuildRecords&source_name=" + source,key=key)
