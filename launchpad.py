@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-launchpad = Blueprint('launchpad', __main__)
+launchpad = Blueprint('launchpad', __name__)
 
 @launchpad.route("/launchpad/<ppa>")
 def return_launchpad_ppa_api(ppa):

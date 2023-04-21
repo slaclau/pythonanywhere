@@ -6,7 +6,7 @@ import json
 import os
 import requests
 
-import launchpad
+from launchpad import launchpad
 
 app = Flask(__name__)
 
