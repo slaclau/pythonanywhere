@@ -13,11 +13,11 @@ def return_launchpad_ppa_api(ppa):
     
 @launchpad.route("/launchpad/<ppa>/<source>/build")
 def return_launchpad_build_records(ppa,source):
-    return get_launchpad_ppa_build_records(ppa,source)
+    return json.dumps(get_launchpad_ppa_build_records(ppa,source))
     
 @launchpad.route("/launchpad/<ppa>/<source>/binary")
 def return_launchpad_binaries(ppa,source):
-    return get_launchpad_ppa_binaries(ppa,source)
+    return json.dumps(get_launchpad_ppa_binaries(ppa,source))
     
 @launchpad.route("/launchpad/<ppa>/<source>/binary/<distribution>/version")
 def return_launchpad_binary_version(ppa,source, distribution):
