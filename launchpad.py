@@ -1,5 +1,6 @@
 from flask import Blueprint
 
+import json
 import requests
 
 from utils import get_shields_endpoint
